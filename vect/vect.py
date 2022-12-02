@@ -196,3 +196,13 @@ def check_type(vec, num):
     elif type(num) == list:
         if type(vec) in (int, float):
             return num, vec
+
+def is_vector(vec):
+    if type(vec) != list:
+        return False
+    for item in vec:
+        if type(item) == list:
+            return False
+        if type(item) not in (int, float):
+            raise TypeError(f"Vector must contanin only int or float coordinates, {item} is {type(item)}")
+    return True
