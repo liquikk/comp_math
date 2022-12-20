@@ -166,43 +166,42 @@ def projection(vec1, vec2):
 def are_vectors(v1, v2):
     if type(v1) != list or type(v2) != list:
         return False
-    for item in v1:
-        if type(item) == list:
-            return False
-        if type(item) not in (int, float):
-            msg = f"Vector must contanin only int or float coordinates, {item} is {type(item)}"
-            raise TypeError(msg)
-    for item in v2:
-        if type(item) == list:
-            return False
-        if type(item) not in (int, float):
-            msg = f"Vector must contanin only int or float coordinates, {item} is {type(item)}"
-            raise TypeError(msg)
-    check_size(v1, v2)
+    if is_vector(v1) and is_vector(v2):
+        check_size(v1, v2)
     return True
 
 
 def check_size(v1, v2):
     if len(v1) != len(v2):
-        error = f"first vector len - {len(v1)}, second vector len - {len(v2)}, len's are not similar"
-        raise ValueError(error)
+        raise ValueError(f"first vector len - {len(v1)}, second vector len - {len(v2)}, len's are not similar")
     return True
 
 
 def check_type(vec, num):
     if type(vec) == list:
-        if type(num) in (int, float):
+        if is_vector(vec) and type(num) in (int, float):
             return vec, num
+        else:
+            mess = f"{num} must be list, int or float type, not {type(num)}"
+            raise TypeError(mess)
     elif type(num) == list:
-        if type(vec) in (int, float):
+        if is_vector(num) and type(vec) in (int, float):
             return num, vec
+        else:
+            mess = f"{vec} must be list, int or float type, not {type(vec)}"
+            raise TypeError(mess)
+    else:
+        raise TypeError("Arguments don't contain vector, vector must be list type")
+
+
+
 
 def is_vector(vec):
-    if type(vec) != list:
-        return False
-    for item in vec:
-        if type(item) == list:
-            return False
-        if type(item) not in (int, float):
-            raise TypeError(f"Vector must contanin only int or float coordinates, {item} is {type(item)}")
-    return True
+	if type(vec) != list:
+		raise TypeError(f"{vec} is not vector. Vector must be list, not {type(vec)}")
+	for item in vec:
+		if type(item) not in (int, float):
+			raise TypeError(f"Vector must contanin only int or float coordinates, {item} is {type(item)}")
+	return True
+
+    
