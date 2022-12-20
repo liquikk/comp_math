@@ -83,6 +83,7 @@ def is_matrix(m):
     else:
         raise TypeError(type(m))
 
+
 def type_cells(m):
     for row in m:
         if type(row) == list:
@@ -91,6 +92,9 @@ def type_cells(m):
                     mess = cell
                     raise TypeError(mess)
     return True
+
+
+
 
 def check_size(m1, m2):
     if len(m1) == len(m2):
